@@ -1,0 +1,17 @@
+# Log files
+*.log
+
+# Editor directories and files
+.DS_Store
+**/*.xcworkspace/
+**/**/xcuserdata/
+
+# SDK
+SDK/
+
+# Dependencies
+**/Pods/
+
+# Pandora apps
+**/Pandora/apps/
+
