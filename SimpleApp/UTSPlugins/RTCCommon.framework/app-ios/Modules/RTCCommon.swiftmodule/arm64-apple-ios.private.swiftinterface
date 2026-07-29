@@ -1,0 +1,528 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name RTCCommon
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import AVFoundation
+import Combine
+import Foundation
+@_exported import RTCCommon
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+public typealias ActionTapClosure = (Swift.Int) -> Swift.Void
+public class ActionItemDesignConfig {
+  public var titleColor: UIKit.UIColor
+  public var lineWidth: CoreFoundation.CGFloat
+  public var backgroundColor: UIKit.UIColor?
+  public var titleFont: UIKit.UIFont
+  public var lineColor: UIKit.UIColor?
+  public init(lineWidth: CoreFoundation.CGFloat = 1.0, titleColor: UIKit.UIColor = UIColor("22262E"), backgroundColor: UIKit.UIColor = .white, lineColor: UIKit.UIColor = UIColor("F2F5FC"))
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ActionItem {
+  final public let id: Foundation.UUID
+  public var icon: UIKit.UIImage?
+  public var title: Swift.String?
+  public var designConfig: RTCCommon.ActionItemDesignConfig
+  public var actionClosure: RTCCommon.ActionTapClosure?
+  public init(title: Swift.String = "", designConfig: RTCCommon.ActionItemDesignConfig = ActionItemDesignConfig(), actionClosure: RTCCommon.ActionTapClosure? = nil)
+  @objc deinit
+}
+extension RTCCommon.ActionItem : Swift.Equatable {
+  public static func == (lhs: RTCCommon.ActionItem, rhs: RTCCommon.ActionItem) -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class ActionCell : UIKit.UITableViewCell {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public var safeAreaInsets: UIKit.UIEdgeInsets {
+    @objc get
+  }
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func prepareForReuse()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func didMoveToWindow()
+  @objc deinit
+}
+extension RTCCommon.ActionCell {
+  @_Concurrency.MainActor @preconcurrency public static let iconWidth: Swift.Int
+  @_Concurrency.MainActor @preconcurrency public static let paddingHorizontal: Swift.Int
+}
+public struct ActionPanelData : Swift.Equatable {
+  public var title: Swift.String
+  public var items: [RTCCommon.ActionItem]
+  public var containCancel: Swift.Bool
+  public var cancelText: Swift.String
+  public var cancelColor: UIKit.UIColor
+  public var cancelTitleColor: UIKit.UIColor
+  public init(title: Swift.String = "", items: [RTCCommon.ActionItem], containCancel: Swift.Bool = true, cancelText: Swift.String = "", cancelColor: UIKit.UIColor = .white, cancelTitleColor: UIKit.UIColor = UIColor("22262E"))
+  public static func == (lhs: RTCCommon.ActionPanelData, rhs: RTCCommon.ActionPanelData) -> Swift.Bool
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class ActionPanel : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public var cancelActionClosure: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func didMoveToWindow()
+  @_Concurrency.MainActor @preconcurrency public init(panelData: RTCCommon.ActionPanelData)
+  @objc deinit
+}
+extension RTCCommon.ActionPanel : UIKit.UITableViewDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func tableView(_ tableView: UIKit.UITableView, heightForRowAt indexPath: Foundation.IndexPath) -> CoreFoundation.CGFloat
+}
+extension RTCCommon.ActionPanel : UIKit.UITableViewDataSource {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func tableView(_ tableView: UIKit.UITableView, numberOfRowsInSection section: Swift.Int) -> Swift.Int
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func tableView(_ tableView: UIKit.UITableView, cellForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func tableView(_ tableView: UIKit.UITableView, didSelectRowAt indexPath: Foundation.IndexPath)
+}
+public class AlertDesignConfig {
+  public init(buttonTextColor: UIKit.UIColor? = UIColor(0x1C66E5), buttonTextFont: UIKit.UIFont? = UIFont(name: "PingFangSC-Regular", size: 16))
+  @objc deinit
+}
+public enum PopupPanelAction {
+  case `default`
+  case close
+  case displayed
+  case disappear
+  case dismiss
+  public static func == (a: RTCCommon.PopupPanelAction, b: RTCCommon.PopupPanelAction) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol PopupPanelSubViewProtocol : UIKit.UIView {
+  func setAction(_ action: RTCCommon.Observable<RTCCommon.PopupPanelAction>)
+  func updateRootViewOrientation(isPortrait: Swift.Bool)
+  func isSupportTouchToExit() -> Swift.Bool
+  func isSupportBackgroundBlur() -> Swift.Bool
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class AlertPanel : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public init(titleText: Swift.String, messageText: Swift.String, buttonText: Swift.String, designConfig: RTCCommon.AlertDesignConfig = AlertDesignConfig(), action: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func didMoveToWindow()
+  @objc deinit
+}
+extension RTCCommon.AlertPanel : RTCCommon.PopupPanelSubViewProtocol {
+  @_Concurrency.MainActor @preconcurrency public func isSupportBackgroundBlur() -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public func setAction(_ popupAction: RTCCommon.Observable<RTCCommon.PopupPanelAction>)
+  @_Concurrency.MainActor @preconcurrency public func updateRootViewOrientation(isPortrait: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency public func isSupportTouchToExit() -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public func isSupportAlertPanel() -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers public class AlertTransitionAnimator : ObjectiveC.NSObject {
+  public enum AlertTransitionStyle {
+    case present
+    case dismiss
+    public static func == (a: RTCCommon.AlertTransitionAnimator.AlertTransitionStyle, b: RTCCommon.AlertTransitionAnimator.AlertTransitionStyle) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum AlertTransitionPosition {
+    case left
+    case right
+    case bottom
+    case fade
+    public static func == (a: RTCCommon.AlertTransitionAnimator.AlertTransitionPosition, b: RTCCommon.AlertTransitionAnimator.AlertTransitionPosition) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @objc override dynamic public init()
+  public init(duration: Foundation.TimeInterval, transitionStyle: RTCCommon.AlertTransitionAnimator.AlertTransitionStyle, transitionPosition: RTCCommon.AlertTransitionAnimator.AlertTransitionPosition)
+  @objc deinit
+}
+extension RTCCommon.AlertTransitionAnimator : UIKit.UIViewControllerAnimatedTransitioning {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func transitionDuration(using transitionContext: (any UIKit.UIViewControllerContextTransitioning)?) -> Foundation.TimeInterval
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func animateTransition(using transitionContext: any UIKit.UIViewControllerContextTransitioning)
+}
+public struct AnyCodable {
+  public let value: Any
+  public init<T>(_ value: T?)
+}
+extension RTCCommon.AnyCodable : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension RTCCommon.AnyCodable : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RTCCommon.AnyCodable : Swift.Equatable {
+  public static func == (lhs: RTCCommon.AnyCodable, rhs: RTCCommon.AnyCodable) -> Swift.Bool
+}
+extension RTCCommon.AnyCodable : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension RTCCommon.AnyCodable : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByNilLiteral {
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByBooleanLiteral {
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByIntegerLiteral {
+  public typealias IntegerLiteralType = Swift.Int
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByFloatLiteral {
+  public typealias FloatLiteralType = Swift.Double
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByExtendedGraphemeClusterLiteral {
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByStringLiteral {
+  public typealias StringLiteralType = Swift.String
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByArrayLiteral {
+  public typealias ArrayLiteralElement = Any
+}
+extension RTCCommon.AnyCodable : Swift.ExpressibleByDictionaryLiteral {
+  public typealias Key = Swift.AnyHashable
+  public typealias Value = Any
+}
+extension RTCCommon.AnyCodable {
+  public init(nilLiteral _: ())
+  public init(booleanLiteral value: Swift.Bool)
+  public init(integerLiteral value: Swift.Int)
+  public init(floatLiteral value: Swift.Double)
+  public init(stringLiteral value: Swift.String)
+  public init(arrayLiteral elements: Any...)
+  public init(dictionaryLiteral elements: (Swift.AnyHashable, Any)...)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class ApplicationUtils : ObjectiveC.NSObject {
+  @objc public static let shared: RTCCommon.ApplicationUtils
+  @objc public var appDelegate: ObjectiveC.NSObject? {
+    @objc get
+  }
+  @objc deinit
+}
+extension RTCCommon.ApplicationUtils {
+  @objc public static var applicationBundle: Foundation.Bundle {
+    @objc get
+  }
+  @objc public static var displayName: Swift.String {
+    @objc get
+  }
+  @objc public static var appVersionWithBuild: Swift.String {
+    @objc get
+  }
+  @objc public static var appVersion: Swift.String {
+    @objc get
+  }
+  @objc public static var buildNumber: Swift.String {
+    @objc get
+  }
+  @objc public static var majorAppVersion: Swift.String {
+    @objc get
+  }
+}
+public let screenWidth: CoreFoundation.CGFloat
+public let screenHeight: CoreFoundation.CGFloat
+public let deviceIsiPhoneX: Swift.Bool
+public let deviceSafeBottomHeight: CoreFoundation.CGFloat
+extension CoreFoundation.CGFloat {
+  public func scale375Width(exceptPad: Swift.Bool = true) -> CoreFoundation.CGFloat
+  public func scale375Height(exceptPad: Swift.Bool = true) -> CoreFoundation.CGFloat
+}
+extension Swift.Int {
+  public func scale375Width(exceptPad: Swift.Bool = true) -> CoreFoundation.CGFloat
+  public func scale375Height(exceptPad: Swift.Bool = true) -> CoreFoundation.CGFloat
+}
+extension CoreFoundation.CGRect {
+  public func dividedIntegral(fraction: CoreFoundation.CGFloat, from fromEdge: CoreFoundation.CGRectEdge) -> (first: CoreFoundation.CGRect, second: CoreFoundation.CGRect)
+}
+extension UIKit.UIStackView {
+  @_Concurrency.MainActor @preconcurrency public func safelyRemoveArrangedSubviews()
+}
+extension UIKit.UIColor {
+  @objc public static var appTint: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var searchBarBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var placeholderBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var pannelBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var buttonBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var verifyCodeBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var appBackGround: UIKit.UIColor {
+    @objc get
+  }
+  @objc public static var inputImageBackColor: UIKit.UIColor {
+    @objc get
+  }
+  @objc convenience dynamic public init?(hex: Swift.String)
+}
+extension Swift.Int {
+  public func scale375(exceptPad: Swift.Bool = true) -> CoreFoundation.CGFloat
+}
+public let ScreenWidth: CoreFoundation.CGFloat
+public let ScreenHeight: CoreFoundation.CGFloat
+public let kDeviceIsIphoneX: Swift.Bool
+public let kDeviceSafeTopHeight: CoreFoundation.CGFloat
+public let kDeviceSafeBottomHeight: CoreFoundation.CGFloat
+public func convertPixel(w: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+public func convertPixel(h: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+public func statusBarHeight() -> CoreFoundation.CGFloat
+public func navigationBarHeight() -> CoreFoundation.CGFloat
+public func navigationFullHeight() -> CoreFoundation.CGFloat
+public class ListManager<T> {
+  public var totalCount: Swift.Int {
+    get
+  }
+  public var count: Swift.Int {
+    get
+  }
+  public init(maxLength: Swift.Int = 1000)
+  public func removeAll()
+  @discardableResult
+  public func popFirst() -> T?
+  public func insert(_ obj: T, at index: Swift.Int)
+  public func append(_ obj: T)
+  public func append(contentsOf list: [T])
+  @discardableResult
+  public func remove(at index: Swift.Int) -> T?
+  public func reverse(index: Swift.Int) -> T?
+  public subscript(index: Swift.Int) -> T? {
+    get
+  }
+  @objc deinit
+}
+extension RTCCommon.ListManager {
+  public func getList() -> [T]
+  public func callAsFunction() -> [T]
+}
+@_hasMissingDesignatedInitializers public class LocalizedLanguage {
+  public static func getCurrentLanguage() -> Swift.String
+  public static var isChinese: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class MenuContainerView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public var blackAreaClickClosure: (() -> Swift.Void)?
+  public enum Position {
+    case bottom
+    case center(horizontalPadding: CoreFoundation.CGFloat? = nil)
+  }
+  @_Concurrency.MainActor @preconcurrency public init(contentView: UIKit.UIView, safeBottomViewBackgroundColor: UIKit.UIColor = UIColor(hex: "#22262E") ?? .black, portraitPosition: RTCCommon.MenuContainerView.Position = .bottom, landscapePosition: RTCCommon.MenuContainerView.Position = .bottom)
+  @objc deinit
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func didMoveToWindow()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func touchesBegan(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+}
+public protocol PropetrySelector {
+  associatedtype State
+  associatedtype Value
+  func map(_ state: Self.State) -> Self.Value
+}
+public class StateSelector<State, Value> : RTCCommon.PropetrySelector {
+  convenience public init(keyPath: Swift.KeyPath<State, Value>)
+  public init(projector: @escaping (State) -> Value)
+  public func map(_ state: State) -> Value
+  @objc deinit
+}
+extension RTCCommon.StateSelector {
+  public func setResult(value: Value, forStateHash stateHash: Foundation.UUID)
+  public func map(_ state: State, stateHash: Foundation.UUID) -> Value
+}
+public class ObservableState<State> : Combine.ObservableObject {
+  public typealias StateUpdateClosure = (inout State) -> Swift.Void
+  @Combine.Published @_projectedValueProperty($state) public var state: State {
+    get
+  }
+  public var $state: Combine.Published<State>.Publisher {
+    get
+  }
+  public init(initialState: State)
+  public func update(isPublished: Swift.Bool = true, reduce: (inout State) -> Swift.Void)
+  public func subscribe<Value>(_ selector: RTCCommon.StateSelector<State, Value>) -> Combine.AnyPublisher<Value, Swift.Never> where Value : Swift.Equatable
+  public func subscribe<Value>(_ selector: RTCCommon.StateSelector<State, Value>) -> Combine.AnyPublisher<Value, Swift.Never>
+  public func subscribe() -> Combine.AnyPublisher<State, Swift.Never>
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+@available(*, deprecated, message: "user ObservableState instead.")
+public class Observable<Type> {
+  @available(*, deprecated, message: "user ObservableState.state instead.")
+  public var value: Type {
+    get
+    set
+  }
+  @available(*, deprecated, message: "user ObservableState(initialState:) instead.")
+  public init(_ value: Type)
+  @available(*, deprecated, message: "user ObservableState.subscribe(selector:) or ObservableState.subscribe() instead.")
+  public func addObserver(_ observer: Swift.AnyObject, removeIfExists: Swift.Bool = true, options: [RTCCommon.ObservableOptions] = [.new], closure: @escaping (Type, RTCCommon.ObservableOptions) -> Swift.Void)
+  @available(*, deprecated, message: "user ObservableState instead.")
+  public func removeObserver(_ observer: Swift.AnyObject)
+  @objc deinit
+}
+public struct ObservableOptions : Swift.OptionSet {
+  public static let initial: RTCCommon.ObservableOptions
+  public static let old: RTCCommon.ObservableOptions
+  public static let new: RTCCommon.ObservableOptions
+  public var rawValue: Swift.Int
+  public init(rawValue: Swift.Int)
+  public typealias ArrayLiteralElement = RTCCommon.ObservableOptions
+  public typealias Element = RTCCommon.ObservableOptions
+  public typealias RawValue = Swift.Int
+}
+@_hasMissingDesignatedInitializers public class PermissionManager {
+  public class func cameraRequestAccess(completion: @escaping (Swift.Bool) -> Swift.Void)
+  public class func microphoneRequestAccess(completion: @escaping (Swift.Bool) -> Swift.Void)
+  public class func gotoPermissionSettings()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class PopupViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency public init(contentView: UIKit.UIView, supportBlurView: Swift.Bool = true, alertTransitionAnimator: RTCCommon.AlertTransitionAnimator = AlertTransitionAnimator())
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func loadView()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @objc deinit
+}
+extension RTCCommon.PopupViewController : UIKit.UIViewControllerTransitioningDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func animationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController, source: UIKit.UIViewController) -> (any UIKit.UIViewControllerAnimatedTransitioning)?
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func animationController(forDismissed dismissed: UIKit.UIViewController) -> (any UIKit.UIViewControllerAnimatedTransitioning)?
+}
+extension RTCCommon.PopupViewController {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillTransition(to size: CoreFoundation.CGSize, with coordinator: any UIKit.UIViewControllerTransitionCoordinator)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency open class RTCBaseView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @available(*, unavailable, message: "Loading this view from a nib is unsupported")
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic open func didMoveToWindow()
+  @_Concurrency.MainActor @preconcurrency open func constructViewHierarchy()
+  @_Concurrency.MainActor @preconcurrency open func activateConstraints()
+  @_Concurrency.MainActor @preconcurrency open func bindInteraction()
+  @_Concurrency.MainActor @preconcurrency open func setupViewStyle()
+  @objc deinit
+}
+public enum CacheError : Swift.Error {
+  case notCreate
+  case typeMismatch
+  public static func == (a: RTCCommon.CacheError, b: RTCCommon.CacheError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class StateCache {
+  public static let shared: RTCCommon.StateCache
+  final public func contains(key: Swift.String) -> Swift.Bool
+  @discardableResult
+  final public func setObject<T>(key: Swift.String, obj: T, force: Swift.Bool = false) -> Swift.Bool
+  final public func getObject<T>(key: Swift.String) throws -> T
+  final public func removeObject(key: Swift.String)
+  final public func clear()
+  final public subscript<T>(key: Swift.String) -> T? {
+    get
+  }
+  final public func subscribeToObjectRemoval(key: Swift.String, action: @escaping (() -> ()))
+  final public func unsubscribeToObjectRemoval(key: Swift.String)
+  @objc deinit
+}
+extension Swift.String {
+  public func addIntervalSpace(intervalStr: Swift.String, interval: Swift.Int) -> Swift.String
+}
+public let createRoomTextMaxByteLength: Swift.Int
+extension Swift.String {
+  public func byteLength() -> Swift.Int
+  public func subString(toByteLength: Swift.Int) -> Swift.String
+}
+@_hasMissingDesignatedInitializers public class TRTCLog {
+  public struct Output : Swift.OptionSet {
+    public let rawValue: Swift.Int
+    public init(rawValue: Swift.Int)
+    public static let info: RTCCommon.TRTCLog.Output
+    public static let debug: RTCCommon.TRTCLog.Output
+    public static let warning: RTCCommon.TRTCLog.Output
+    public static let error: RTCCommon.TRTCLog.Output
+    public static let print: RTCCommon.TRTCLog.Output
+    public static let all: RTCCommon.TRTCLog.Output
+    public typealias ArrayLiteralElement = RTCCommon.TRTCLog.Output
+    public typealias Element = RTCCommon.TRTCLog.Output
+    public typealias RawValue = Swift.Int
+  }
+  public static var output: RTCCommon.TRTCLog.Output
+  public static func info(_ string: Swift.String, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  public static func debug(_ string: Swift.String, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  public static func warning(_ string: Swift.String, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  public static func error(_ string: Swift.String, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  public static func out<N>(message: N, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  public static func out<N>(_ message: N, fileName: Swift.String = #file, methodName: Swift.String = #function, lineNumber: Swift.Int = #line)
+  @objc deinit
+}
+extension UIKit.UIColor {
+  convenience public init(red: Swift.Int, green: Swift.Int, blue: Swift.Int, alpha: CoreFoundation.CGFloat = 1.0)
+  convenience public init(_ hex: Swift.Int, alpha: CoreFoundation.CGFloat = 1.0)
+  convenience public init(_ hex: Swift.String)
+  public func trans2Image() -> UIKit.UIImage
+}
+extension UIKit.UIColor {
+  public static let themeTintColor: UIKit.UIColor
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public func addTapGesture(target: Any?, action: ObjectiveC.Selector?, delegate: (any UIKit.UIGestureRecognizerDelegate)? = nil)
+  @_Concurrency.MainActor @preconcurrency public func getCurrentViewController() -> UIKit.UIViewController?
+  @_Concurrency.MainActor @preconcurrency public func safeRemoveFromSuperview()
+}
+extension UIKit.UITableViewCell {
+  @_Concurrency.MainActor @preconcurrency public class var cellReuseIdentifier: Swift.String {
+    get
+  }
+}
+extension UIKit.UICollectionViewCell {
+  @_Concurrency.MainActor @preconcurrency public class var cellReuseIdentifier: Swift.String {
+    get
+  }
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public func roundedRect(rect: CoreFoundation.CGRect, byRoundingCorners: UIKit.UIRectCorner, cornerRadii: CoreFoundation.CGSize)
+  @_Concurrency.MainActor @preconcurrency public func roundedCircle(rect: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency public func clearRoundedCorners()
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public var gradientLayer: QuartzCore.CAGradientLayer? {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public func removeGradientLayer()
+  @discardableResult
+  @_Concurrency.MainActor @preconcurrency public func gradient(colors: [UIKit.UIColor], bounds: CoreFoundation.CGRect = .zero, isVertical: Swift.Bool = false) -> QuartzCore.CAGradientLayer
+}
+extension UIKit.UIWindow {
+  @_Concurrency.MainActor @preconcurrency public func t_makeKeyAndVisible()
+  @_Concurrency.MainActor @preconcurrency public static func getKeyWindow() -> UIKit.UIWindow?
+}
+@_hasMissingDesignatedInitializers public class WindowUtils {
+  public static func getCurrentWindow() -> UIKit.UIWindow?
+  public static func getCurrentWindowViewController() -> UIKit.UIViewController?
+  public static var bottomSafeHeight: CoreFoundation.CGFloat {
+    get
+  }
+  public static var topSafeHeight: CoreFoundation.CGFloat {
+    get
+  }
+  public static var isPortrait: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+extension RTCCommon.PopupPanelAction : Swift.Equatable {}
+extension RTCCommon.PopupPanelAction : Swift.Hashable {}
+extension RTCCommon.AlertTransitionAnimator.AlertTransitionStyle : Swift.Equatable {}
+extension RTCCommon.AlertTransitionAnimator.AlertTransitionStyle : Swift.Hashable {}
+extension RTCCommon.AlertTransitionAnimator.AlertTransitionPosition : Swift.Equatable {}
+extension RTCCommon.AlertTransitionAnimator.AlertTransitionPosition : Swift.Hashable {}
+extension RTCCommon.CacheError : Swift.Equatable {}
+extension RTCCommon.CacheError : Swift.Hashable {}

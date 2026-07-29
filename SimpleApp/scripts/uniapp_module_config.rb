@@ -7,6 +7,33 @@ require 'tempfile'
 module UniAppModuleConfig
   module_function
 
+  PROTECTED_KEYS = %w[
+    CFBundleExecutable
+    CFBundleIdentifier
+    CFBundlePackageType
+    CFBundleName
+    CFBundleShortVersionString
+    CFBundleVersion
+    CFBundleInfoDictionaryVersion
+    CFBundleSignature
+    CFBundleDevelopmentRegion
+    DTCompiler
+    DTPlatformBuild
+    DTPlatformName
+    DTPlatformVersion
+    DTSDKBuild
+    DTSDKName
+    DTXcode
+    DTXcodeBuild
+    BuildMachineOSBuild
+    MinimumOSVersion
+    UIDeviceFamily
+    LSRequiresIPhoneOS
+    UIRequiredDeviceCapabilities
+    UIRequiresFullScreen
+    CFBundleSupportedPlatforms
+  ].freeze
+
   DEFAULT_PERMISSION_TEXT = {
     'NSCameraUsageDescription' => 'Allow camera access for scanning and shooting.',
     'NSPhotoLibraryUsageDescription' => 'Allow photo library access for choosing images.',
@@ -100,6 +127,7 @@ module UniAppModuleConfig
     apply_feature_commands(feature_plist, enabled_subspecs)
     apply_plist_values(info_plist, enabled_subspecs, plist_values, strict)
     apply_uts_plugin_values(info_plist, entitlements, uts_plugins)
+    apply_dcloud_uniplugins(info_plist, project_dir)
     apply_entitlements(entitlements, plist_values)
     warn_external_requirements(project_dir, enabled_subspecs, plist_values)
   end
@@ -391,6 +419,53 @@ module UniAppModuleConfig
     write_plist(entitlements, plist) if changed
   end
 
+  def apply_dcloud_uniplugins(info_plist, project_dir)
+    json_path = File.join(project_dir, 'dcloud_uniplugins.json')
+    return unless File.exist?(json_path)
+
+    plugins_config = JSON.parse(File.read(json_path))
+    return if plugins_config.empty?
+
+    plist = read_plist(info_plist)
+    existing = plist['dcloud_uniplugins'] || []
+    merged = deep_merge_uniplugins(existing, plugins_config)
+    return if merged == existing
+
+    plist['dcloud_uniplugins'] = merged
+    write_plist(info_plist, plist)
+  rescue JSON::ParserError => e
+    warn "[UniAppModuleConfig] Failed to parse #{json_path}: #{e.message}"
+  end
+
+  def deep_merge_uniplugins(existing, config)
+    result = existing.dup
+    native_plugins = config['nativePlugins'] || []
+    native_plugins.each do |group|
+      next unless group.is_a?(Hash)
+
+      plugins = group['plugins'] || []
+      hooks_class = group['hooksClass']
+      plugins.each do |plugin|
+        next unless plugin.is_a?(Hash) && plugin['name']
+
+        name = plugin['name']
+        entry = result.find { |item| item.is_a?(Hash) && item['plugins']&.any? { |p| p['name'] == name } }
+        if entry
+          entry['hooksClass'] = hooks_class if hooks_class && !entry['hooksClass']
+          entry_plugin = entry['plugins'].find { |p| p['name'] == name }
+          plugin.each { |key, value| entry_plugin[key] ||= value unless entry_plugin.key?(key) }
+        else
+          merged_plugins = [{ 'name' => name }]
+          plugin.each { |key, value| merged_plugins.first[key] = value }
+          new_entry = { 'plugins' => merged_plugins }
+          new_entry['hooksClass'] = hooks_class if hooks_class
+          result << new_entry
+        end
+      end
+    end
+    result
+  end
+
   def merge_plist_file(target, path)
     source = read_plist(path)
     deep_merge_plist!(target, source)
@@ -415,6 +490,8 @@ module UniAppModuleConfig
   def deep_merge_plist!(target, source)
     changed = false
     source.each do |key, value|
+      next if PROTECTED_KEYS.include?(key)
+
       if target[key].is_a?(Hash) && value.is_a?(Hash)
         changed ||= deep_merge_plist!(target[key], value)
       elsif target[key].is_a?(Array) && value.is_a?(Array)

@@ -1,0 +1,11 @@
+framework module RTCCommon {
+  umbrella header "RTCCommon-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module RTCCommon.Swift {
+  header "RTCCommon-Swift.h"
+  requires objc
+}

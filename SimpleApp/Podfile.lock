@@ -16,6 +16,28 @@ PODS:
     - uniapp/Core
   - uniapp/XMLHttpRequest (5.11.0)
   - uniapp/Zip (5.11.0)
+  - unimoduleBundleResources (1.0.0):
+    - uniapp/UTS
+  - unimoduleImSDKPlusFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleRTCCommonFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleRTCRoomEngineFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleSnapKitFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTUICallKitFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTUICallKitSwiftFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTUICoreFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTXFFmpegFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTXLiteAVSDKProfessionalFramework (1.0.0):
+    - uniapp/UTS
+  - unimoduleTXSoundTouchFramework (1.0.0):
+    - uniapp/UTS
 
 DEPENDENCIES:
   - uniapp/Audio (from `..`)
@@ -34,13 +56,57 @@ DEPENDENCIES:
   - uniapp/UTS (from `..`)
   - uniapp/XMLHttpRequest (from `..`)
   - uniapp/Zip (from `..`)
+  - unimoduleBundleResources (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleBundleResources`)
+  - unimoduleImSDKPlusFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleImSDKPlusFramework`)
+  - unimoduleRTCCommonFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleRTCCommonFramework`)
+  - unimoduleRTCRoomEngineFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleRTCRoomEngineFramework`)
+  - unimoduleSnapKitFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleSnapKitFramework`)
+  - unimoduleTUICallKitFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICallKitFramework`)
+  - unimoduleTUICallKitSwiftFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICallKitSwiftFramework`)
+  - unimoduleTUICoreFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICoreFramework`)
+  - unimoduleTXFFmpegFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXFFmpegFramework`)
+  - unimoduleTXLiteAVSDKProfessionalFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework`)
+  - unimoduleTXSoundTouchFramework (from `/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXSoundTouchFramework`)
 
 EXTERNAL SOURCES:
   uniapp:
     :path: ".."
+  unimoduleBundleResources:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleBundleResources"
+  unimoduleImSDKPlusFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleImSDKPlusFramework"
+  unimoduleRTCCommonFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleRTCCommonFramework"
+  unimoduleRTCRoomEngineFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleRTCRoomEngineFramework"
+  unimoduleSnapKitFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleSnapKitFramework"
+  unimoduleTUICallKitFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICallKitFramework"
+  unimoduleTUICallKitSwiftFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICallKitSwiftFramework"
+  unimoduleTUICoreFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTUICoreFramework"
+  unimoduleTXFFmpegFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXFFmpegFramework"
+  unimoduleTXLiteAVSDKProfessionalFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework"
+  unimoduleTXSoundTouchFramework:
+    :path: "/Users/chenyang/Documents/cheny/code/uniapp-ios/SimpleApp/UTSPlugins/.generated/unimoduleTXSoundTouchFramework"
 
 SPEC CHECKSUMS:
   uniapp: b714e4aea2d39eb1022d8572b81c17407ef4ea57
+  unimoduleBundleResources: daa73f3a47a3b7792733d8f0f1bbfa6b06b98d3a
+  unimoduleImSDKPlusFramework: d291a0999ba2e0d7d687aee2295637be28a970ea
+  unimoduleRTCCommonFramework: 05c4fc69804bc1e6906cc73d7b9a19da0c542d3b
+  unimoduleRTCRoomEngineFramework: 6a4ead809c9b9f4526600db9619435047607237e
+  unimoduleSnapKitFramework: d75cbd9d3c014e39c0c01ae4461dfccef3abac6a
+  unimoduleTUICallKitFramework: 71ff2d222c4a5822c7afb0742019f20a0e3a8930
+  unimoduleTUICallKitSwiftFramework: da98f8e46e8f1694fea3a9d0e4cb46d886741e1d
+  unimoduleTUICoreFramework: 215e4f028a24e01721061f19d3d11ef09e81801d
+  unimoduleTXFFmpegFramework: 1d60ea2938fba344c4dd7211ff0f5b415fc6ff80
+  unimoduleTXLiteAVSDKProfessionalFramework: 25e31b9c65c6e9a91689b29fd44842afdf70cce1
+  unimoduleTXSoundTouchFramework: e0d6c238aac6637d286b549c49a0b92925ad4ef7
 
 PODFILE CHECKSUM: a798b6c9dba5c06fe192cbb4bd6aac4783ca1782
 

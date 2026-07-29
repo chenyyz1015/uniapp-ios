@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -293,7 +293,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		863708D03013C7C7001D2BB3 /* assets */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = assets; sourceTree = "<group>"; };
+		863708D03013C7C7001D2BB3 /* assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -740,11 +750,21 @@
 				"${PODS_ROOT}/Target Support Files/Pods-HBuilder/Pods-HBuilder-frameworks.sh",
 				"${PODS_ROOT}/../../SDK/Libs/DCUniBase.framework",
 				"${PODS_ROOT}/../../SDK/Libs/DCloudUTSFoundation.framework",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleImSDKPlusFramework/Frameworks/ImSDK_Plus.framework",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleRTCCommonFramework/Frameworks/RTCCommon.framework",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXFFmpegFramework/Frameworks/TXFFmpeg.framework",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework/Frameworks/TXLiteAVSDK_Professional.framework",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXSoundTouchFramework/Frameworks/TXSoundTouch.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCUniBase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCloudUTSFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImSDK_Plus.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTCCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TXFFmpeg.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TXLiteAVSDK_Professional.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TXSoundTouch.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -770,6 +790,26 @@
 				"${PODS_ROOT}/../../SDK/Bundles/weex-polyfill.js",
 				"${PODS_ROOT}/../../SDK/Bundles/unincomponents.ttf",
 				"${PODS_ROOT}/../../SDK/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleBundleResources/Resources/TUICore_Privacy.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleBundleResources/Resources/TUICallKitBundle.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleBundleResources/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleImSDKPlusFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleImSDKPlusFramework/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleRTCCommonFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleRTCRoomEngineFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleRTCRoomEngineFramework/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleSnapKitFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleSnapKitFramework/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTUICallKitFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTUICallKitSwiftFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTUICoreFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXFFmpegFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXFFmpegFramework/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework/Resources/TXLiteAVSDK_Professional.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXLiteAVSDKProfessionalFramework/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXSoundTouchFramework/config.json",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleTXSoundTouchFramework/PrivacyInfo.xcprivacy",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -785,6 +825,10 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weex-polyfill.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/unincomponents.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TUICore_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TUICallKitBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/config.json",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TXLiteAVSDK_Professional.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

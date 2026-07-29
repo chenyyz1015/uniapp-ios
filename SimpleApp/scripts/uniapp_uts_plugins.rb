@@ -72,6 +72,45 @@ module UniAppUTSPlugins
 
     privacy = File.join(app_ios, 'PrivacyInfo.xcprivacy')
     FileUtils.cp(privacy, pod_path) if File.exist?(privacy)
+
+    copy_flat_binaries(app_ios, pod_path)
+  end
+
+  def copy_flat_binaries(app_ios, pod_path)
+    has_subdirs = %w[src Frameworks Libs].any? { |name| Dir.exist?(File.join(app_ios, name)) }
+    return if has_subdirs
+
+    headers = File.join(app_ios, 'Headers')
+    modules = File.join(app_ios, 'Modules')
+    has_headers = Dir.exist?(headers)
+    has_modules = Dir.exist?(modules)
+    has_binary = Dir.children(app_ios).any? { |c| File.file?(File.join(app_ios, c)) && !c.start_with?('.') && File.extname(c) != '.bundle' && c != 'Info.plist' && c != 'PrivacyInfo.xcprivacy' }
+
+    if has_binary || has_headers || has_modules
+      framework_name = File.basename(File.dirname(app_ios))
+      framework_dir = File.join(pod_path, 'Frameworks', framework_name)
+      FileUtils.mkdir_p(framework_dir)
+
+      FileUtils.cp_r(headers, File.join(framework_dir, 'Headers')) if has_headers
+      FileUtils.cp_r(modules, File.join(framework_dir, 'Modules')) if has_modules
+
+      info_plist = File.join(app_ios, 'Info.plist')
+      FileUtils.cp(info_plist, framework_dir) if File.exist?(info_plist)
+    end
+
+    Dir.children(app_ios).each do |child|
+      source = File.join(app_ios, child)
+      next if child.start_with?('.') || child == 'Info.plist' || child == 'PrivacyInfo.xcprivacy'
+
+      case File.extname(child)
+      when '.bundle'
+        resource_dir = File.join(pod_path, 'Resources')
+        FileUtils.mkdir_p(resource_dir)
+        FileUtils.cp_r(source, File.join(resource_dir, child))
+      else
+        FileUtils.cp(source, File.join(framework_dir, child)) if has_binary && File.file?(source)
+      end
+    end
   end
 
   def read_json(path)
@@ -129,10 +168,18 @@ module UniAppUTSPlugins
     lines << "  s.name = '#{pod_name}'"
     lines << "  s.version = '1.0.0'"
     lines << "  s.summary = 'uni-app UTS plugin #{plugin_name}.'"
+    lines << "  s.authors = 'DCloud'"
+    lines << "  s.license = { :type => 'MIT' }"
+    lines << "  s.homepage = 'https://uniapp.dcloud.net.cn'"
     lines << "  s.platform = :ios, '#{deployment_target}'"
-    lines << "  s.source = { :path => '.' }"
-    lines << "  s.source_files = ['src/**/*.{h,m,mm,swift,c,cc,cpp}', 'DCloudUTSConfig.{h,m}', 'UTSCPP.{h,mm}']"
-    lines << "  s.resources = ['Resources/**/*', 'config.json', 'PrivacyInfo.xcprivacy']"
+    has_src = Dir.exist?(File.join(pod_path, 'src'))
+    lines << "  s.source = { :git => '' }"
+    if has_src
+      lines << "  s.source_files = ['src/**/*.{h,m,mm,swift,c,cc,cpp}', 'DCloudUTSConfig.{h,m}', 'UTSCPP.{h,mm}']"
+    else
+      lines << "  s.source_files = 'DCloudUTSConfig.h'"
+    end
+    lines.concat(resource_lines(pod_path))
     lines << "  s.vendored_frameworks = 'Frameworks/**/*.{framework,xcframework}'"
     lines << "  s.vendored_libraries = 'Libs/**/*.a'"
     lines << "  s.frameworks = #{frameworks.inspect}" unless frameworks.empty?
@@ -141,6 +188,30 @@ module UniAppUTSPlugins
     dependencies.each { |dependency| lines << "  #{dependency}" }
     lines << 'end'
     File.write(File.join(pod_path, "#{pod_name}.podspec"), "#{lines.join("\n")}\n")
+  end
+
+  def resource_lines(pod_path)
+    resources_dir = File.join(pod_path, 'Resources')
+    config_json = File.exist?(File.join(pod_path, 'config.json')) ? "'config.json'" : nil
+    privacy = File.exist?(File.join(pod_path, 'PrivacyInfo.xcprivacy')) ? "'PrivacyInfo.xcprivacy'" : nil
+
+    unless Dir.exist?(resources_dir)
+      extras = [config_json, privacy].compact
+      return ["  s.resources = [#{extras.join(', ')}]"] if extras.any?
+
+      return []
+    end
+
+    children = Dir.children(resources_dir)
+    bundles = children.select { |c| File.extname(c) == '.bundle' }
+    non_bundles = children - bundles
+
+    entries = []
+    entries << "'Resources/**/*'" unless non_bundles.empty?
+    bundles.each { |b| entries << "'Resources/#{b}'" }
+    entries << config_json if config_json
+    entries << privacy if privacy
+    ["  s.resources = [#{entries.compact.join(', ')}]"]
   end
 
   def array_config(config, key)

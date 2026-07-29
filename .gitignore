@@ -5,6 +5,7 @@
 .DS_Store
 **/*.xcworkspace/
 **/**/xcuserdata/
+**/UTSPlugins/.generated/
 
 # SDK
 SDK/
@@ -13,5 +14,4 @@ SDK/
 **/Pods/
 
 # Pandora apps
-**/Pandora/apps/
-
+**/Pandora/apps/**/

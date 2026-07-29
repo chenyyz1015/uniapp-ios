@@ -56,7 +56,7 @@ App-iOS-SDK/
 
 1. 在 Xcode 工程中，找到 `Pandora/apps` 目录。
 2. 删除原有的 `__UNI__XXXXXX` 文件夹（或备份）。
-3. 将你生成的 `__UNI__XXXXXX` 文件夹完整拖入 `apps` 下（选择 "Copy items if needed"）。
+3. 将你生成的 `__UNI__XXXXXX` 文件夹完整拖入 `apps` 下。
 
 ### 3.3 修改 control.xml（关键）
 
